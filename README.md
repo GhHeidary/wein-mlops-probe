@@ -64,3 +64,12 @@ Neue Datenversion speichern:
     git add data/raw/wein.csv.dvc
     git commit -m "Neue Datenversion"
     dvc push
+
+## Tests (ab Tag 10)
+
+Tests lokal ausführen:
+
+    pytest -v
+
+Die Tests laufen auch automatisch bei jedem Push und Pull Request auf `main`
+(GitHub Actions, Datei `.github/workflows/ci.yml`). Ergebnis: Tab **Actions** auf GitHub.
