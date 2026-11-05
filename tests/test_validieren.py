@@ -45,3 +45,9 @@ def test_unbekannte_klasse_wird_erkannt(gute_daten):
     gute_daten.loc[5, "target"] = 7
     fehler = pruefe_daten(gute_daten)
     assert any("Unbekannte Klassen" in f for f in fehler)
+
+
+def test_negative_werte_werden_erkannt(gute_daten):
+    gute_daten.loc[2, "magnesium"] = -5.0
+    fehler = pruefe_daten(gute_daten)
+    assert any("Negative Werte" in f for f in fehler)
