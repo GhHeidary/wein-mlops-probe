@@ -14,7 +14,7 @@ BERICHT = Path("reports/validierung.json")
 MERKMALE = [
     "alcohol", "malic_acid", "ash", "alcalinity_of_ash", "magnesium",
     "total_phenols", "flavanoids", "nonflavanoid_phenols", "proanthocyanins",
-    "color_intensity", "hue", "od280/od315_of_diluted_wines", "proline",
+    "color_intensity", "hue", "od280/od315_of_diluted_wines", "prolin",
 ]
 MINDEST_ZEILEN = 100
 
