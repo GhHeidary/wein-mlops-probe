@@ -1,0 +1,7 @@
+# Datei: requirements-ci.txt – in VS Code einfügen und speichern
+# Pakete für die Tests in GitHub Actions – dieselben Versionen wie in environment.yml.
+pandas==3.1.0
+numpy==2.5.4
+scikit-learn==1.9.1
+pyyaml==6.0.3
+pytest==9.2.0

@@ -1,0 +1,30 @@
+# Datei: .github/workflows/ci.yml – in VS Code einfügen und speichern
+# Continuous Integration: Bei jedem Push und Pull Request auf main laufen die Tests.
+# Mit workflow_dispatch kannst du den Workflow auch von Hand starten.
+
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  tests:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Code holen
+        uses: actions/checkout@v7
+
+      - name: Python 3.12 einrichten
+        uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+
+      - name: Pakete installieren
+        run: pip install -r requirements-ci.txt
+
+      - name: Tests ausführen
+        run: pytest -v
