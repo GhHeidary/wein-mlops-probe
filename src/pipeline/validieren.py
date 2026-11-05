@@ -49,6 +49,12 @@ def pruefe_daten(daten):
         if ausserhalb > 0:
             fehler.append(f"Alkohol außerhalb 8 bis 16 %: {ausserhalb} Zeilen")
 
+    # 6. Gibt es negative Messwerte? Alle Merkmale sind Mengen oder Werte, die nicht negativ sein können.
+    vorhandene = [s for s in MERKMALE if s in daten.columns]
+    negativ = int((daten[vorhandene] < 0).sum().sum())
+    if negativ > 0:
+        fehler.append(f"Negative Werte: {negativ}")
+
     return fehler
 
 
