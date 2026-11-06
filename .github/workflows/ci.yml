@@ -10,6 +10,10 @@ on:
   pull_request:
     branches: [main]
   workflow_dispatch:
+  schedule:
+    # Jeden Montag um 06:17 Uhr deutscher Zeit
+    - cron: "17 6 * * 1"
+      timezone: "Europe/Berlin"
 
 jobs:
   tests:
