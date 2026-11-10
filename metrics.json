@@ -1,5 +1,5 @@
 {
-  "genauigkeit": 1.0,
-  "f1_makro": 1.0,
+  "genauigkeit": 0.8611,
+  "f1_makro": 0.8564,
   "test_weine": 36
 }

@@ -56,14 +56,14 @@ stages:
     params:
       params.yaml:
         trainieren:
-          n_estimators: 10
-          max_depth: 3
+          n_estimators: 2
+          max_depth: 2
           random_state: 42
     outs:
     - path: models/modell.joblib
       hash: md5
-      md5: e99315b0d30102678b01cc8f927ed1a9
-      size: 16017
+      md5: 1dd4a999b2497ac268c7e6911d1496a5
+      size: 3777
   bewerten:
     cmd: python src/pipeline/bewerten.py
     deps:
@@ -73,8 +73,8 @@ stages:
       size: 2614
     - path: models/modell.joblib
       hash: md5
-      md5: e99315b0d30102678b01cc8f927ed1a9
-      size: 16017
+      md5: 1dd4a999b2497ac268c7e6911d1496a5
+      size: 3777
     - path: src/pipeline/bewerten.py
       hash: md5
       md5: 07497209870c1fd809e8040ea5134267
@@ -82,5 +82,5 @@ stages:
     outs:
     - path: metrics.json
       hash: md5
-      md5: bfd722e7c57049792c57c8d743111e36
-      size: 64
+      md5: 218c778c307e850f2fdd75a7c8a2a1f6
+      size: 70
