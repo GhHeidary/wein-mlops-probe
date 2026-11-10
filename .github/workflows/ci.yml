@@ -1,5 +1,6 @@
 # Datei: .github/workflows/ci.yml – in VS Code einfügen und speichern
-# Continuous Integration: Zuerst die Tests (drei Python-Versionen), danach die Datenprüfung mit Bericht.
+# Continuous Integration (ab Tag 13 End-to-End): Tests (drei Python-Versionen),
+# danach die ganze Pipeline mit Quality Gate und Modell als Artefakt.
 
 name: CI
 
@@ -38,10 +39,12 @@ jobs:
       - name: Tests ausführen
         run: pytest -v
 
-  datenpruefung:
-    # Dieser Job startet erst, wenn alle Test-Jobs grün sind.
+  pipeline:
+    # End-to-End: Erst wenn alle Tests grün sind, trainiert CI das Modell mit der Pipeline.
     needs: tests
     runs-on: ubuntu-latest
+    env:
+      DVC_NO_ANALYTICS: "1"
     steps:
       - name: Code holen
         uses: actions/checkout@v7
@@ -51,20 +54,30 @@ jobs:
         with:
           python-version: "3.12"
           cache: pip
-          cache-dependency-path: requirements-ci.txt
+          cache-dependency-path: requirements-pipeline.txt
 
       - name: Pakete installieren
-        run: pip install -r requirements-ci.txt
+        run: pip install -r requirements-pipeline.txt
 
-      - name: Daten erzeugen
+      - name: Rohdaten erzeugen
         run: python src/daten_exportieren.py
 
-      - name: Daten validieren
-        run: python src/pipeline/validieren.py
+      - name: Pipeline ausführen
+        run: dvc repro --force
 
-      - name: Bericht hochladen
+      - name: Reproduzierbarkeit prüfen
+        run: git diff --exit-code dvc.lock metrics.json reports/validierung.json
+
+      - name: Quality Gate
+        run: python src/quality_gate.py
+
+      - name: Modell hochladen
+        # Nur ein Modell, das das Quality Gate bestanden hat, wird verpackt.
         uses: actions/upload-artifact@v7
         with:
-          name: validierungsbericht
-          path: reports/validierung.json
+          name: modell
+          path: |
+            models/modell.joblib
+            metrics.json
+            reports/validierung.json
           retention-days: 7

@@ -9,3 +9,9 @@ trainieren:
   n_estimators: 10
   max_depth: 3
   random_state: 42
+
+# Ab Tag 13: Mindestwerte für das Quality Gate (gelesen von src/quality_gate.py).
+# Diese Werte sind keine Stufe der Pipeline – dvc repro ignoriert sie.
+quality_gate:
+  min_genauigkeit: 0.90
+  min_f1_makro: 0.90
