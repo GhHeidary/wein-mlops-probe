@@ -14,3 +14,6 @@ mlartifacts/
 
 # Editor
 .vscode/
+
+# Ergebnisse der Batch-Vorhersage (ab Tag 14) - jederzeit neu erzeugbar
+ausgabe/
