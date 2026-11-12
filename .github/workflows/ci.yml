@@ -1,6 +1,6 @@
 # Datei: .github/workflows/ci.yml – in VS Code einfügen und speichern
 # Continuous Integration (ab Tag 13 End-to-End): Tests (drei Python-Versionen),
-# danach die ganze Pipeline mit Quality Gate und Modell als Artefakt.
+# danach die ganze Pipeline mit Quality Gate, API-Tests (ab Tag 15) und Modell als Artefakt.
 
 name: CI
 
@@ -37,7 +37,8 @@ jobs:
         run: pip install -r requirements-ci.txt
 
       - name: Tests ausführen
-        run: pytest -v
+        # Die API-Tests brauchen das Modell. Hier gibt es noch keins -> im Job pipeline.
+        run: pytest -v --ignore=tests/test_api.py
 
   pipeline:
     # End-to-End: Erst wenn alle Tests grün sind, trainiert CI das Modell mit der Pipeline.
@@ -70,6 +71,10 @@ jobs:
 
       - name: Quality Gate
         run: python src/quality_gate.py
+
+      - name: API-Tests
+        # Wir testen die API mit genau dem Modell, das CI gerade gebaut hat.
+        run: pytest -v tests/test_api.py
 
       - name: Modell hochladen
         # Nur ein Modell, das das Quality Gate bestanden hat, wird verpackt.
