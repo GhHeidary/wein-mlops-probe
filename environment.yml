@@ -1,10 +1,10 @@
 # Datei: environment.yml – in VS Code einfügen und speichern
 # Conda-Umgebung fuer den IfaDW-Kurs MLOps (AI Engineer)
 #
-# Stand: Tag 14 (neu: fastapi und uvicorn fest eingetragen)
+# Stand: Tag 15 (neu: httpx2 fuer die API-Tests)
 # Getestet am 30.10.2026 mit conda 26.9 (Miniforge) unter Linux, Python 3.12.16.
 # DVC ergaenzt und getestet am 04.11.2026, pytest am 05.11.2026,
-# fastapi und uvicorn am 11.11.2026.
+# fastapi und uvicorn am 11.11.2026, httpx2 am 12.11.2026.
 #
 # Anlegen:        conda env create -f environment.yml
 # Aktivieren:     conda activate mlops-kurs
@@ -42,6 +42,8 @@ dependencies:
       # wir schreiben die Versionen hier fest.
       - fastapi==0.162.0
       - uvicorn==0.54.0
+      # TestClient fuer die API-Tests (ab Tag 15). Starlette empfiehlt httpx2.
+      - httpx2==2.16.0
 
 variables:
   # MLflow sendet sonst anonyme Nutzungsdaten an den Hersteller.
