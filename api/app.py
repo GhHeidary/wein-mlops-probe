@@ -21,7 +21,7 @@ BEISPIEL = {
     "hue": 1.04, "od280/od315_of_diluted_wines": 3.92, "proline": 1065.0,
 }
 
-app = FastAPI(title="Wein-API", description="Vorhersage der Weinsorte", version="0.2.0")
+app = FastAPI(title="Wein-API", description="Vorhersage der Weinsorte", version="0.2.1")
 
 # Wir laden das Modell einmal beim Start.
 modell = joblib.load("models/modell.joblib")
