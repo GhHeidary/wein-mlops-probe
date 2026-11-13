@@ -170,3 +170,24 @@ Tests der API (brauchen `models/modell.joblib`):
 
 In CI laufen die API-Tests im Job `pipeline`, direkt nach dem Quality Gate –
 mit genau dem Modell, das CI gerade gebaut hat.
+
+
+## Deployment auf Render (ab Tag 16)
+
+Die Wein-API läuft als Web-Service auf [Render](https://render.com) (PaaS, kostenloser Tarif).
+
+| Einstellung | Wert |
+|---|---|
+| Language | Python 3 (Version aus `.python-version`: 3.12) |
+| Branch | `main` |
+| Region | Frankfurt (EU Central) |
+| Build Command | `pip install -r requirements-api.txt && python src/daten_exportieren.py && python src/pipeline/validieren.py && python src/pipeline/vorbereiten.py && python src/pipeline/trainieren.py` |
+| Start Command | `uvicorn api.app:app --host 0.0.0.0 --port $PORT` |
+| Health Check Path | `/health` |
+| Auto-Deploy | After CI Checks Pass |
+
+Render baut das Modell beim Deploy mit den Skripten der Pipeline neu (ohne DVC).
+CI prüft vorher, dass die Pipeline reproduzierbar ist.
+
+Hinweis: Der kostenlose Service schläft nach 15 Minuten ohne Anfrage ein.
+Die erste Anfrage danach dauert etwa eine Minute.
