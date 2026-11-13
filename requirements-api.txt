@@ -1,0 +1,5 @@
+# Datei: requirements-api.txt – in VS Code einfügen und speichern
+# Pakete für den Betrieb der Wein-API auf einem Server (ab Tag 16, z. B. Render).
+# Wir nehmen alles aus requirements-ci.txt (Modell bauen, Tests) und dazu den Server uvicorn.
+-r requirements-ci.txt
+uvicorn==0.54.0
